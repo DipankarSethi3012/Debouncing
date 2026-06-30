@@ -107,12 +107,15 @@ async def save_to_database(payload:dict):
     """    
     print(f"Saving to database: {payload['data']} for user {payload['user_id']}")
 
+# async def run_server_instance(server_name: str, delay_before_firing:float):
+
+
 async def main():
     #Create an instance of the RedisAsyncDebouncer with a wait time of 2 seconds and the save_to_database callback function. This sets up the debouncer to listen for events and execute the callback after a period of inactivity.
     debouncer = RedisAsyncDebouncer(redis_url="redis://localhost:6379/0", wait_time=2, callback=save_to_database)   
     #__init__() -> method is called when the RedisAsyncDebouncer instance is created. It initializes the Redis connection, sets the wait time for debouncing, and assigns the callback function that will be executed after the debounce period.
         
-    print("🚀 Stream receiving rapid, chaotic messages across multiple workers...")
+    print("Stream receiving rapid, chaotic messages across multiple workers...")
     
     # Simulating messages arriving at different times (potentially hitting different servers)
     await debouncer.trigger("user_123", {"user_id": "user_123", "data": "Mouse click 1"})
